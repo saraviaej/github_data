@@ -8,7 +8,7 @@
       },
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"Dim Categorías\",\"Dim Clientes\",\"Dim Compañías de envíos\",\"Detalles de pedidos\",\"Dim Empleados\",\"Pedidos\",\"Dim Productos\",\"Dim Proveedores\",\"Tabla Hechos Ventas\",\"Dim Ubigeo\",\"Dim Territorio Destinatario\",\"FechaPedido\",\"FechaEntrega\",\"FechaEnvio\",\"InicioAño\",\"FinAño\",\"Dim FechaPedido\",\"Dim FechaEnvio\",\"Dim Fechaentrega\",\"Dim UbigeoCopia1\",\"Dim UbigeoCopia2\",\"Proyecciones\",\"Medidas\",\"Tabla Matriz\",\"Filtros Matriz\"]"
+        "value": "[\"Dim Categorías\",\"Dim Clientes\",\"Dim Compañías de envíos\",\"Detalles de pedidos\",\"Dim Empleados\",\"Pedidos\",\"Dim Productos\",\"Dim Proveedores\",\"Tabla Hechos Ventas\",\"Dim Ubigeo\",\"Dim Territorio Destinatario\",\"FechaPedido\",\"FechaEntrega\",\"FechaEnvio\",\"InicioAño\",\"FinAño\",\"Dim FechaPedido\",\"Dim FechaEnvio\",\"Dim Fechaentrega\",\"Dim UbigeoCopia1\",\"Dim UbigeoCopia2\",\"Proyecciones\",\"Medidas\",\"Tabla Matriz\",\"Filtros Matriz\",\"Medidas_DAX\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -5194,6 +5194,72 @@
           }
         ],
         "showAsVariationsOnly": true
+      },
+      {
+        "name": "Medidas_DAX",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Columna1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "239d31a0-8e54-479e-84bd-4bfebed0658b",
+            "sourceColumn": "Columna1",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "3a6d38d3-2a59-46c3-b3a2-d7f72a59a8e0",
+        "measures": [
+          {
+            "name": "Venta Matriz_",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "var ColumnaSeleccionada = SELECTEDVALUE('Tabla Matriz'[Índice])",
+              "var FiltroSeleccionado = SELECTEDVALUE('Filtros Matriz'[Índice])",
+              "Return",
+              "SWITCH(FiltroSeleccionado,",
+              "1, SWITCH(ColumnaSeleccionada, 1, Medidas[Total Venta],",
+              "2, Medidas[Ventas WeekEnd],",
+              "3, Medidas[Ventas Lunes - Jueves]),",
+              "2, SWITCH(ColumnaSeleccionada, 1, Medidas[Total Venta],",
+              "2, FORMAT(Medidas[% Ventas WeekEnd],\"Percent\"),",
+              "3, FORMAT(Medidas[% Ventas Lunes - Jueves],\"Percent\")))"
+            ],
+            "lineageTag": "1cd5ec96-8c7d-414c-b887-83cf3c26eff5"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Medidas_DAX",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),",
+                "    #\"Tipo cambiado\" = Table.TransformColumnTypes(Origen,{{\"Columna1\", type text}})",
+                "in",
+                "    #\"Tipo cambiado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
       }
     ]
   }
