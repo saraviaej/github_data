@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Laboratorio 3.3 - Funciones DAX Avanzadas.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

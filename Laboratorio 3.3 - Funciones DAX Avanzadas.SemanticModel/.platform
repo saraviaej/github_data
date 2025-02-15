@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Laboratorio 3.3 - Funciones DAX Avanzadas"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "68bba00c-bd06-4c7a-9dbb-fbdaf74e5d8f"
+  }
+}
